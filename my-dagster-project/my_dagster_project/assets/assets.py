@@ -35,6 +35,25 @@ def github_stars_notebook(github_stargazers_by_week):
     markdown = f"""
 ### Github Stars
 
+
+import nbformat
+from github import InputFileContent
+
+@asset
+def github_stars_notebook_gist(context, github_stars_notebook):
+    gist = (
+        Github(ACCESS_TOKEN)
+        .get_user()
+        .create_gist(
+            public=False,
+            files={
+                "github_stars.ipynb": InputFileContent(github_stars_notebook),
+            },
+        )
+    )
+    context.log.info(f"Notebook created at {gist.html_url}")
+    return gist.html_url
+
 ```python
 import pickle
 github_stargazers_by_week = pickle.loads({pickle.dumps(github_stargazers_by_week)!r})
