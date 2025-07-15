@@ -1,7 +1,7 @@
 from dagster import asset
 from github import Github
 
-ACCESS_TOKEN = "ghp_YOUR_TOKEN_HERE"
+ACCESS_TOKEN = "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"
 
 @asset
 def github_stargazers():
